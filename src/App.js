@@ -1,8 +1,8 @@
 import './App.css';
 import React, { Component } from 'react'
-import logo from './logo.svg';
 import CoinList from './components/CoinList/CoinList';
 import AccountBalance from './components/AccountBalance/AccountBalance';
+import Header from './components/Header';
 import {v4 as uuidv4} from 'uuid';
 
 export default class App extends Component {
@@ -22,12 +22,7 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} alt="React logo" className="App-logo"/>
-          <h1 className="App-title">
-            Coin Exchange
-          </h1>
-        </header>
+        <Header/>
         <AccountBalance amount={this.state.balance} />
         <CoinList coinData={this.state.coinData} />
       </div>
