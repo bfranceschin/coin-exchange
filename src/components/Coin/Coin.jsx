@@ -18,23 +18,19 @@ const CoinRow = styled.tr `
 export default class Coin extends Component {
     constructor (props) {
         super(props);
-        this.state = {
-            name: props.name,
-            ticker: props.ticker,
-            price: props.price,
-        }
-
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick (event) {
+        console.log("TESTETESTE");
         event.preventDefault();
-        const randomPercentage = 0.995 + Math.random() * 0.01;
-        this.setState(function(oldState) {
-            return {
-                price: oldState.price * randomPercentage,
-            }
-        })
+        this.props.handleRefresh(this.props.ticker);
+        // const randomPercentage = 0.995 + Math.random() * 0.01;
+        // this.setState(function(oldState) {
+        //     return {
+        //         price: oldState.price * randomPercentage,
+        //     }
+        // })
     }
     
     /*
@@ -57,9 +53,9 @@ export default class Coin extends Component {
     render() {
         return (
             <CoinRow>
-                <td>{this.state.name}</td>
-                <td>{this.state.ticker}</td>
-                <td>${this.state.price}</td>
+                <td>{this.props.name}</td>
+                <td>{this.props.ticker}</td>
+                <td>${this.props.price}</td>
                 <td>
                     <form action="#" method="POST">
                     <button onClick={this.handleClick}>Refresh</button>

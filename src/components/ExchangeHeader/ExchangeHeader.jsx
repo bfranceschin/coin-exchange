@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import logo from '../logo.svg';
+import logo from './logo.svg';
 import styled from 'styled-components';
 
-const HeaderStyle = styled.header `
+const Header = styled.header `
     background-color: #282c34;
     min-height: 20vh;
     display: flex;
@@ -16,20 +16,20 @@ const H1 = styled.h1 `
     color: white;
 `;
 
-const ImgLogo = styled.img `
+const Img = styled.img `
   height: 8rem;
   pointer-events: none;
 `;
 
-export default class Header extends Component {
+export default class ExchangeHeader extends Component {
     render() {
         return (
-            <HeaderStyle>
-                <ImgLogo src={logo} alt="React logo" />
+            <Header>
+                <Img src={logo} alt="React logo" />
                 <H1>
                     Coin Exchange
                 </H1>
-            </HeaderStyle>
+            </Header>
         )
     }
 }
