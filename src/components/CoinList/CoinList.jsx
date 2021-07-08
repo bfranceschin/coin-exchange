@@ -43,7 +43,7 @@ export default class CoinList extends Component {
               //)
                 this.props.coinData.map(value => {
                     return <Coin 
-                          key={value.key} 
+                          key={value.ticker} 
                           handleRefresh = {this.props.handleRefresh} 
                           name={value.name} 
                           ticker={value.ticker} 

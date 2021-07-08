@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import CoinList from './components/CoinList/CoinList';
 import AccountBalance from './components/AccountBalance/AccountBalance';
 import ExchangeHeader from './components/ExchangeHeader/ExchangeHeader';
-import {v4 as uuidv4} from 'uuid';
+//import {v4 as uuidv4} from 'uuid';
 
 export default class App extends Component {
   constructor (props) {
@@ -11,11 +11,11 @@ export default class App extends Component {
     this.state = {
       balance: 10000,
       coinData: [
-        {key: uuidv4(), name: "Bitcoin",      ticker: "BTC",  price: 60000, balance: 0.5},
-        {key: uuidv4(), name: "Ethereum",     ticker: "ETH",  price: 5000, balance: 4.5},
-        {key: uuidv4(), name: "Tether",       ticker: "USDT", price: 1.000, balance: 1000},
-        {key: uuidv4(), name: "Ripple",       ticker: "XRP",  price: 0.2, balance: 0},
-        {key: uuidv4(), name: "Bitcoin Cash", ticker: "BCH",  price: 612.0, balance: 0},
+        {name: "Bitcoin",      ticker: "BTC",  price: 60000, balance: 0.5},
+        {name: "Ethereum",     ticker: "ETH",  price: 5000, balance: 4.5},
+        {name: "Tether",       ticker: "USDT", price: 1.000, balance: 1000},
+        {name: "Ripple",       ticker: "XRP",  price: 0.2, balance: 0},
+        {name: "Bitcoin Cash", ticker: "BCH",  price: 612.0, balance: 0},
       ],
       showBalance: false,
     }
