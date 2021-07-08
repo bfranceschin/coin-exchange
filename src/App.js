@@ -11,20 +11,23 @@ export default class App extends Component {
     this.state = {
       balance: 10000,
       coinData: [
-        {key: uuidv4(), name: "Bitcoin",      ticker: "BTC",  price: 60000},
-        {key: uuidv4(), name: "Ethereum",     ticker: "ETH",  price: 5000},
-        {key: uuidv4(), name: "Tether",       ticker: "USDT", price: 1.000},
-        {key: uuidv4(), name: "Ripple",       ticker: "XRP",  price: 0.2},
-        {key: uuidv4(), name: "Bitcoin Cash", ticker: "BCH",  price: 612.0},
+        {key: uuidv4(), name: "Bitcoin",      ticker: "BTC",  price: 60000, balance: 0.5},
+        {key: uuidv4(), name: "Ethereum",     ticker: "ETH",  price: 5000, balance: 4.5},
+        {key: uuidv4(), name: "Tether",       ticker: "USDT", price: 1.000, balance: 1000},
+        {key: uuidv4(), name: "Ripple",       ticker: "XRP",  price: 0.2, balance: 0},
+        {key: uuidv4(), name: "Bitcoin Cash", ticker: "BCH",  price: 612.0, balance: 0},
       ],
+      showBalance: false,
     }
     this.handleRefresh = this.handleRefresh.bind(this);
+    this.handleShowBalance = this.handleShowBalance.bind(this);
   }
+
   handleRefresh (changeValueTicker)
   {
     // const coin = this.state.coinData.find(c => c.ticker === changeValueTicker);
     // console.log(coin);
-    let refreshedData = this.state.coinData.map( function({ticker, price, name, key}) {
+    let refreshedData = this.state.coinData.map( function({ticker, price, name, key, balance}) {
       let newPrice = price;
       if (ticker === changeValueTicker) {
         const randomPercentage = 0.995 + Math.random() * 0.01;
@@ -35,16 +38,24 @@ export default class App extends Component {
         key,
         ticker,
         price: newPrice,
+        balance,
       };
     })
     this.setState({coinData: refreshedData});
   }
+
+  handleShowBalance ()
+  {
+    let newShowBalance = !this.state.showBalance;
+    this.setState({showBalance: newShowBalance});
+  }
+
   render() {
     return (
       <div className="App">
         <ExchangeHeader/>
-        <AccountBalance amount={this.state.balance} />
-        <CoinList coinData={this.state.coinData} handleRefresh={this.handleRefresh}/>
+        <AccountBalance amount={this.state.balance} showBalance={this.state.showBalance} handleShowBalance={this.handleShowBalance}/>
+        <CoinList coinData={this.state.coinData} handleRefresh={this.handleRefresh} showBalance={this.state.showBalance} />
       </div>
     );
   }
