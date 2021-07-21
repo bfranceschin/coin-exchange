@@ -6,7 +6,12 @@ import ExchangeHeader from './components/ExchangeHeader/ExchangeHeader';
 import axios from 'axios';
 //import {v4 as uuidv4} from 'uuid';
 
+const tickerUrl = 'https://api.coinpaprika.com/v1/tickers/';
 const COIN_COUNT = 10;
+
+function formatPrice (price) {
+  return parseFloat(Number(price).toFixed(2));
+}
 
 export default class App extends Component {
   state = {
@@ -25,7 +30,6 @@ export default class App extends Component {
     console.log("componentDidMount");
     const coinsResponse = await axios.get('https://api.coinpaprika.com/v1/coins');
     const coinIds = coinsResponse.data.slice(0, COIN_COUNT).map(coin => coin.id);
-    const tickerUrl = 'https://api.coinpaprika.com/v1/tickers/';
     const promises = coinIds.map(id => axios.get( tickerUrl + id));
     let coinData = await Promise.all(promises);
     let coinPriceData = coinData.map(function(response) {
@@ -35,7 +39,7 @@ export default class App extends Component {
         name: coin.name,
         ticker: coin.symbol,
         balance: 0,
-        price: parseFloat(Number(coin.quotes.USD.price).toFixed(2)),
+        price: formatPrice(coin.quotes.USD.price),
       };
     })
 
@@ -46,15 +50,14 @@ export default class App extends Component {
   componentDidUpdate = () => {
     console.log("componentDidUpdate");
   }
-  handleRefresh = (changeValueTicker) =>
+  handleRefresh = async (changeValueTickerId) =>
   {
-    // const coin = this.state.coinData.find(c => c.ticker === changeValueTicker);
-    // console.log(coin);
-    let refreshedData = this.state.coinData.map( function(values) {
+    let response = await axios.get( tickerUrl + changeValueTickerId);
+    const newPrice = formatPrice(response.data.quotes.USD.price);
+    let refreshedData = this.state.coinData.map((values) => {
       let newValues = {...values};
-      if (newValues.ticker === changeValueTicker) {
-        const randomPercentage = 0.995 + Math.random() * 0.01;
-        newValues.price *= randomPercentage;
+      if (newValues.key === changeValueTickerId) {
+        newValues.price = newPrice;
       }
       return newValues;
     })

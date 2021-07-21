@@ -49,7 +49,8 @@ export default class CoinList extends Component {
                           ticker={value.ticker} 
                           price={value.price}
                           balance={value.balance}
-                          showBalance={this.props.showBalance}/>
+                          showBalance={this.props.showBalance}
+                          tickerId={value.key}/>
                   }
                     //<Coin {...value} />
                 )
