@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import styled from 'styled-components';
 import Coin from '../Coin/Coin';
 
@@ -8,56 +8,35 @@ const Table = styled.table `
   font-size: 1.4rem;
 `;
 
-export default class CoinList extends Component {
-    render() {
-      let titleRow;
-      if (this.props.showBalance) {
-        titleRow = <tr>
-                    <th>Name</th>
-                    <th>Ticker</th>
-                    <th>Price</th>
-                    <th>Balance</th>
-                    <th>Action</th>
-                  </tr>
-      }
-      else {
-        titleRow = <tr>
-                    <th>Name</th>
-                    <th>Ticker</th>
-                    <th>Price</th>
-                    <th>Action</th>
-                  </tr>
-
-      }
-      
-      return (
-        <Table>
-          <thead>
-            {titleRow}
-          </thead>
-          <tbody>
-            {
-              //this.state.coinData.map(value => 
-              //  //<Coin key={value.key} name={value.name} ticker={value.ticker} price={value.price} />
-              //  <Coin {...value} />
-              //)
-                this.props.coinData.map(value => {
-                    return <Coin 
-                          key={value.key ? value.key : value.ticker} 
-                          handleRefresh = {this.props.handleRefresh} 
-                          name={value.name} 
-                          ticker={value.ticker} 
-                          price={value.price}
-                          balance={value.balance}
-                          showBalance={this.props.showBalance}
-                          tickerId={value.key}/>
-                  }
-                    //<Coin {...value} />
-                )
-            
+export default function CoinList (props) {
+  return (
+    <Table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Ticker</th>
+          <th>Price</th>
+          {props.showBalance ? <th>Balance</th> : null}
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          props.coinData.map(value => {
+              return <Coin 
+                    key={value.key ? value.key : value.ticker} 
+                    handleRefresh = {props.handleRefresh} 
+                    name={value.name} 
+                    ticker={value.ticker} 
+                    price={value.price}
+                    balance={value.balance}
+                    showBalance={props.showBalance}
+                    tickerId={value.key}/>
             }
-          </tbody>
-        </Table>
-        )
-    }
+          )
+        
+        }
+      </tbody>
+    </Table>
+    )
 }
