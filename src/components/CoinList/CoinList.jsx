@@ -24,7 +24,7 @@ export default function CoinList (props) {
       </thead>
       <tbody>
         {
-          props.coinData.slice(0, props.count).map(value => {
+          props.coinData.slice(props.firstCoin, props.firstCoin + props.count).map(value => {
               return <Coin 
                     key={value.key ? value.key : value.ticker} 
                     handleRefresh = {props.handleRefresh} 

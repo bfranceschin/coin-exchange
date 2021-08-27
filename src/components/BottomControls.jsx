@@ -8,15 +8,17 @@ const Section = styled.section `
     padding: 0.5rem 0 0.5rem 0.5rem;
 `;
 
-export default function LoadMoreCoins (props) {
+export default function BottomControls (props) {
     return (
         <Section>
+            <button onClick={props.handlePrevPage}>Previous Page</button>
+            <button onClick={props.handleNextPage}>Next Page</button>
             <button onClick={props.handleLoadMoreCoins}>Load More</button>
-            showing 1 to {props.count}
+            showing {props.firstCoin + 1} to {props.firstCoin + props.count}
         </Section>
     )
 }
 
-LoadMoreCoins.propTypes = {
+BottomControls.propTypes = {
     count: PropTypes.number.isRequired,
 };

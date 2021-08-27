@@ -10,37 +10,6 @@ const CoinRow = styled.tr `
     }
 `;
 
-// export default class Coin extends Component {
-//     handleClick = (event) => {
-//         event.preventDefault();
-//         this.props.handleRefresh(this.props.tickerId);
-//     }
-    
-//     render() {
-//         let name = <td>{this.props.name}</td>;
-//         let ticker = <td>{this.props.ticker}</td>;
-//         let price = <td>{this.props.price}</td>;
-//         let balance = <td>{this.props.balance}</td>;
-//         let button = <td>
-//                           <form action="#" method="POST">
-//                           <button onClick={this.handleClick}>Refresh</button>
-//                           </form>
-//                       </td>
-
-//         return (
-//                 <CoinRow>
-//                     {name}
-//                     {ticker}
-//                     {price}
-//                     {this.props.showBalance ? balance : null}
-//                     {button}
-//                 </CoinRow>
-//             )
-        
-        
-//     }
-// }
-
 const Coin = ({rank, name, ticker, price, market_cap, balance, showBalance, handleRefresh, tickerId}) => {
     const handleClick = (event) => {
         event.preventDefault();

@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import CoinList from './components/CoinList/CoinList';
 import AccountBalance from './components/AccountBalance/AccountBalance';
 import ExchangeHeader from './components/ExchangeHeader/ExchangeHeader';
-import LoadMore from './components/LoadMore';
+import BottomControls from './components/BottomControls';
 import axios from 'axios';
 //import {v4 as uuidv4} from 'uuid';
 
@@ -15,22 +15,12 @@ function formatPrice (price) {
 }
 
 export default function App (props) {
-  // state = {
-  //   balance: 10000,
-  //   coinData: [
-  //     // {name: "Bitcoin",      ticker: "BTC",  price: 60000, balance: 0.5},
-  //     // {name: "Ethereum",     ticker: "ETH",  price: 5000, balance: 4.5},
-  //     // {name: "Tether",       ticker: "USDT", price: 1.000, balance: 1000},
-  //     // {name: "Ripple",       ticker: "XRP",  price: 0.2, balance: 0},
-  //     // {name: "Bitcoin Cash", ticker: "BCH",  price: 612.0, balance: 0},
-  //   ],
-  //   showBalance: false,
-  // }
 
   const [balance, setBalance] = useState(1000);
   const [showBalance, setShwoBalance] = useState(true);
   const [coinData, setCoinData] = useState([]);
   const [coinCount, setCoinCount] = useState(INITIAL_COIN_COUNT);
+  const [firstCoin, setFirstCoin] = useState(0);
   
   const componentDidMount = async () => {
     //console.log("componentDidMount");
@@ -92,12 +82,22 @@ export default function App (props) {
     setCoinCount(coinCount + INITIAL_COIN_COUNT);
   }
 
+  const handlePrevPage = () =>
+  {
+    setFirstCoin(Math.max(firstCoin - coinCount, 0));
+  }
+
+  const handleNextPage = () =>
+  {
+    setFirstCoin(firstCoin + coinCount);
+  }
+
   return (
     <div className="App">
       <ExchangeHeader/>
       <AccountBalance amount={balance} showBalance={showBalance} handleShowBalance={handleShowBalance}/>
-      <CoinList coinData={coinData} count={coinCount} handleRefresh={handleRefresh} showBalance={showBalance} />
-      <LoadMore count={coinCount} handleLoadMoreCoins={handleLoadMoreCoins}/>
+      <CoinList coinData={coinData} firstCoin={firstCoin} count={coinCount} handleRefresh={handleRefresh} showBalance={showBalance} />
+      <BottomControls count={coinCount} firstCoin={firstCoin} handleLoadMoreCoins={handleLoadMoreCoins} handleNextPage={handleNextPage} handlePrevPage={handlePrevPage}/>
     </div>
   );
 }
