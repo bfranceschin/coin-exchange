@@ -41,13 +41,14 @@ const CoinRow = styled.tr `
 //     }
 // }
 
-const Coin = ({name, ticker, price, market_cap, balance, showBalance, handleRefresh, tickerId}) => {
+const Coin = ({rank, name, ticker, price, market_cap, balance, showBalance, handleRefresh, tickerId}) => {
     const handleClick = (event) => {
         event.preventDefault();
         handleRefresh(tickerId);
     }
     return (
         <CoinRow>
+            <td>{rank}</td>
             <td>{name}</td>
             <td>{ticker}</td>
             <td>{price}</td>

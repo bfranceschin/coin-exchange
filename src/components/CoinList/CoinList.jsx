@@ -13,6 +13,7 @@ export default function CoinList (props) {
     <Table>
       <thead>
         <tr>
+          <th>#</th>
           <th>Name</th>
           <th>Ticker</th>
           <th>Price</th>
@@ -23,10 +24,11 @@ export default function CoinList (props) {
       </thead>
       <tbody>
         {
-          props.coinData.map(value => {
+          props.coinData.slice(0, props.count).map(value => {
               return <Coin 
                     key={value.key ? value.key : value.ticker} 
                     handleRefresh = {props.handleRefresh} 
+                    rank={value.rank} 
                     name={value.name} 
                     ticker={value.ticker} 
                     price={value.price}

@@ -3,11 +3,12 @@ import React, { useState, useEffect } from 'react'
 import CoinList from './components/CoinList/CoinList';
 import AccountBalance from './components/AccountBalance/AccountBalance';
 import ExchangeHeader from './components/ExchangeHeader/ExchangeHeader';
+import LoadMore from './components/LoadMore';
 import axios from 'axios';
 //import {v4 as uuidv4} from 'uuid';
 
 const tickerUrl = 'https://api.coinpaprika.com/v1/tickers/';
-const COIN_COUNT = 10;
+const INITIAL_COIN_COUNT = 10;
 
 function formatPrice (price) {
   return parseFloat(Number(price).toFixed(2));
@@ -29,28 +30,23 @@ export default function App (props) {
   const [balance, setBalance] = useState(1000);
   const [showBalance, setShwoBalance] = useState(true);
   const [coinData, setCoinData] = useState([]);
+  const [coinCount, setCoinCount] = useState(INITIAL_COIN_COUNT);
   
   const componentDidMount = async () => {
-    console.log("componentDidMount");
-    const coinsResponse = await axios.get('https://api.coinpaprika.com/v1/coins');
-    const coinIds = coinsResponse.data.slice(0, COIN_COUNT).map(coin => coin.id);
-    const promises = coinIds.map(id => axios.get( tickerUrl + id));
-    let coinData = await Promise.all(promises);
-    let coinPriceData = coinData.map(function(response) {
-      const coin = response.data;
+    //console.log("componentDidMount");
+    const coinsResponse = await axios.get('https://api.coinpaprika.com/v1/tickers');
+    coinsResponse.data.sort(function (a, b) {return a.rank - b.rank;});
+    let coinPriceData = coinsResponse.data.map(function(coin) {
       return {
         key: coin.id,
         name: coin.name,
         ticker: coin.symbol,
         balance: 0,
         price: formatPrice(coin.quotes.USD.price),
-        market_cap: formatPrice(coin.quotes.USD.market_cap)
+        market_cap: formatPrice(coin.quotes.USD.market_cap),
+        rank: coin.rank
       };
     })
-
-    //console.log(coinData);
-    
-    //this.setState({coinData: coinPriceData});
     setCoinData(coinPriceData);
   }
 
@@ -91,11 +87,17 @@ export default function App (props) {
     setShwoBalance(newShowBalance);
   }
 
+  const handleLoadMoreCoins = () =>
+  {
+    setCoinCount(coinCount + INITIAL_COIN_COUNT);
+  }
+
   return (
     <div className="App">
       <ExchangeHeader/>
       <AccountBalance amount={balance} showBalance={showBalance} handleShowBalance={handleShowBalance}/>
-      <CoinList coinData={coinData} handleRefresh={handleRefresh} showBalance={showBalance} />
+      <CoinList coinData={coinData} count={coinCount} handleRefresh={handleRefresh} showBalance={showBalance} />
+      <LoadMore count={coinCount} handleLoadMoreCoins={handleLoadMoreCoins}/>
     </div>
   );
 }
