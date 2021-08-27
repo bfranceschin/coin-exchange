@@ -41,7 +41,7 @@ const CoinRow = styled.tr `
 //     }
 // }
 
-const Coin = ({name, ticker, price, balance, showBalance, handleRefresh, tickerId}) => {
+const Coin = ({name, ticker, price, market_cap, balance, showBalance, handleRefresh, tickerId}) => {
     const handleClick = (event) => {
         event.preventDefault();
         handleRefresh(tickerId);
@@ -51,6 +51,7 @@ const Coin = ({name, ticker, price, balance, showBalance, handleRefresh, tickerI
             <td>{name}</td>
             <td>{ticker}</td>
             <td>{price}</td>
+            <td>{market_cap}</td>
             {showBalance ? <td>{balance}</td> : null}
             <td>
                 <form action="#" method="POST">

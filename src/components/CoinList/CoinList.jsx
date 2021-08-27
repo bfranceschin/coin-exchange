@@ -16,6 +16,7 @@ export default function CoinList (props) {
           <th>Name</th>
           <th>Ticker</th>
           <th>Price</th>
+          <th>Market Cap</th>
           {props.showBalance ? <th>Balance</th> : null}
           <th>Action</th>
         </tr>
@@ -29,6 +30,7 @@ export default function CoinList (props) {
                     name={value.name} 
                     ticker={value.ticker} 
                     price={value.price}
+                    market_cap={value.market_cap}
                     balance={value.balance}
                     showBalance={props.showBalance}
                     tickerId={value.key}/>
