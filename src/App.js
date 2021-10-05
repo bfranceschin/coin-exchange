@@ -7,6 +7,10 @@ import BottomControls from './components/BottomControls';
 import axios from 'axios';
 //import {v4 as uuidv4} from 'uuid';
 
+//import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootswatch/dist/flatly/bootstrap.min.css';
+import '@fortawesome/fontawesome-free/js/all';
+
 const tickerUrl = 'https://api.coinpaprika.com/v1/tickers/';
 const INITIAL_COIN_COUNT = 10;
 
@@ -17,7 +21,7 @@ function formatPrice (price) {
 export default function App (props) {
 
   const [balance, setBalance] = useState(1000);
-  const [showBalance, setShwoBalance] = useState(true);
+  const [showBalance, setShwoBalance] = useState(false);
   const [coinData, setCoinData] = useState([]);
   const [coinCount, setCoinCount] = useState(INITIAL_COIN_COUNT);
   const [firstCoin, setFirstCoin] = useState(0);
@@ -71,10 +75,21 @@ export default function App (props) {
     setCoinData(refreshedData);
   }
 
+  const handleTransaction = (isBuy, valueChanged) =>
+  {
+    console.log("handleTransaction", isBuy, valueChanged);
+  }
+
   const handleShowBalance = () =>
   {
     let newShowBalance = !showBalance;
     setShwoBalance(newShowBalance);
+  }
+
+  const handleHellicopter = () =>
+  {
+    let newBalance = balance + 10;
+    setBalance(newBalance);
   }
 
   const handleLoadMoreCoins = () =>
@@ -95,8 +110,8 @@ export default function App (props) {
   return (
     <div className="App">
       <ExchangeHeader/>
-      <AccountBalance amount={balance} showBalance={showBalance} handleShowBalance={handleShowBalance}/>
-      <CoinList coinData={coinData} firstCoin={firstCoin} count={coinCount} handleRefresh={handleRefresh} showBalance={showBalance} />
+      <AccountBalance amount={balance} showBalance={showBalance} handleShowBalance={handleShowBalance} handleHellicopter={handleHellicopter}/>
+      <CoinList coinData={coinData} firstCoin={firstCoin} count={coinCount} handleRefresh={handleRefresh} handleTransaction={handleTransaction} showBalance={showBalance} />
       <BottomControls count={coinCount} firstCoin={firstCoin} handleLoadMoreCoins={handleLoadMoreCoins} handleNextPage={handleNextPage} handlePrevPage={handlePrevPage}/>
     </div>
   );
