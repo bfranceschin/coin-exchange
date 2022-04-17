@@ -1,3 +1,9 @@
+# Simple react app
+
+Simple react app that access coin paprika api and displays coin's prices.
+
+[Result](https://bfranceschin.github.io/coin-exchange/).
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
