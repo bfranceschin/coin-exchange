@@ -2,7 +2,7 @@
 
 Simple react app that access coin paprika api and displays coin's prices.
 
-[Result](https://bfranceschin.github.io/coin-exchange/).
+[Result](https://bfranceschin.github.io/coin-exchange/): [https://bfranceschin.github.io/coin-exchange/](https://bfranceschin.github.io/coin-exchange/).
 
 # Getting Started with Create React App
 
